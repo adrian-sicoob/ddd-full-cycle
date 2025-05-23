@@ -1,10 +1,11 @@
 import Address from "./address";
 
 export default class Customer {
-  _id: string;
-  _name: string;
-  _address!: Address;
-  _active: boolean;
+  private _id: string;
+  private _name: string;
+  private _address!: Address;
+  private _active: boolean;
+  private _rewardPoints: number = 0;
 
   constructor(id: string, name: string) {
     this._id = id;
@@ -21,6 +22,18 @@ export default class Customer {
     if (this._id.length === 0) {
       throw new Error("Id is required")
     }
+  }
+
+  get rewardPoints(): number {
+    return this._rewardPoints
+  }
+
+  get name(): string {
+    return this._name;
+  }
+
+  get id(): string {
+    return this._id
   }
 
   changeName(name: string) {
@@ -42,11 +55,11 @@ export default class Customer {
     this._address = address
   }
 
-  get name(): string {
-    return this._name;
-  }
-
   isActive(): boolean {
     return this._active
+  }
+
+  addRewardPoints(points: number) {
+    this._rewardPoints += points
   }
 }
