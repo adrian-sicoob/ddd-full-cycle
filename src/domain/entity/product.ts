@@ -31,5 +31,13 @@ export default class Product {
   changePrice(price: number): void {
     this._price = price
   }
+
+  get id(): string {
+    return this._id;
+  }
+
+  get name(): string {
+    return this._name;
+  }
   
 }
