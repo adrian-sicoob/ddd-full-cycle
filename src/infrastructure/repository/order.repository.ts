@@ -4,6 +4,7 @@ import OrderRepositoryInterface from "../../domain/repository/order.repository.i
 import OrderItemModel from "../db/sequelize/model/order-item.model";
 import OrderModel from "../db/sequelize/model/order.model";
 
+
 export default class OrderRepository implements OrderRepositoryInterface {
   async create(entity: Order): Promise<void> {
     await OrderModel.create({
@@ -23,14 +24,34 @@ export default class OrderRepository implements OrderRepositoryInterface {
   }
 
   async update(entity: Order): Promise<void> {
-    await OrderModel.update({
-      customerId: entity.customerId,
-      total: entity.total(),
-    }, {
-      where: {
-        id: entity.id,
-      }
-    })
+    await OrderModel.sequelize.transaction(async (t) => {
+      await OrderModel.update(
+        {
+          customerId: entity.customerId,
+          total: entity.total(),
+        },
+        {
+          where: { id: entity.id },
+          transaction: t,
+        }
+      );
+      
+      
+      await OrderItemModel.destroy({ where: { orderId: entity.id }, transaction: t });
+      
+      
+      const items = entity.items.map(item => ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        productId: item.productId,
+        quantity: item.quantity,
+        orderId: entity.id,
+      }));
+
+      
+      await OrderItemModel.bulkCreate(items, { transaction: t });
+    });
   }
 
   async find(id: string): Promise<Order> {

@@ -51,5 +51,11 @@ export default class Order {
     return this._items;
   }
   
-  
+  addItem(item: OrderItem) {
+    this._items.push(item);
+  }
+
+  removeItem(item: OrderItem) {
+    this._items = this._items.filter((i) => i.id !== item.id);
+  }
 }
