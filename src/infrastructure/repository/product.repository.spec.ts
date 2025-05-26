@@ -60,6 +60,7 @@ describe("Product repository test", () => {
 
     const foundProduct = await productRepository.find("1");
 
+
     expect(productModel.toJSON()).toStrictEqual({
       id: foundProduct.id,
       name: foundProduct.name,
@@ -78,6 +79,5 @@ describe("Product repository test", () => {
     const products = [product, product2];
 
     expect(products).toEqual(foundProducts);
-
   })
 })
