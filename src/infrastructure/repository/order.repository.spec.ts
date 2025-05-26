@@ -128,8 +128,6 @@ describe("Order repository test", () => {
 
     const foundOrder = await orderRepository.find(order.id);
 
-    console.log(foundOrder)
-
     expect(orderModel.toJSON()).toStrictEqual({
       id: foundOrder.id,
       customerId: foundOrder.customerId,
