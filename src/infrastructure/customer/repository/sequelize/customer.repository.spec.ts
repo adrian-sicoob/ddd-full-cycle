@@ -28,7 +28,7 @@ describe("Customer repository tests", () => {
     const customerRepository = new CustomerRepository();
     const customer = new Customer("1", "Customer 1");
     const address = new Address("Street 1", 1, "City 1", "12345");
-    customer.Address = address;
+    customer.address = address;
     await customerRepository.create(customer);
 
     const customerModel = await CustomerModel.findOne({where: {id: "1"}});

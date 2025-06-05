@@ -30,7 +30,7 @@ describe("Customer unit tests", () => {
 
       const address = new Address("Street 1", 123, "88061000", "Florianópolis")
 
-      customer.Address = address;
+      customer.address = address;
 
       customer.activate()
 

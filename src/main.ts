@@ -8,7 +8,7 @@ let customer = new Customer("123", "Wesley Willians")
 
 const address = new Address("Rua dois", 2, "88061000", "Floripa")
 
-customer.Address = address;
+customer.address = address;
 customer.activate();
 
 const item1 = new OrderItem("1", "Item 1", 10, "p1", 1);
